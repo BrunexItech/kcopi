@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
+import BackLink from "@/components/BackLink";
 
 export const metadata: Metadata = { title: "Privacy Policy" };
 
@@ -33,13 +34,18 @@ export default function PrivacyPage() {
         compact
       />
       <section className="py-24">
-        <div className="container-page max-w-3xl space-y-8">
-          {SECTIONS.map(([h, p]) => (
-            <div key={h}>
-              <h3 className="text-xl">{h}</h3>
-              <p className="mt-2 text-[var(--color-ink-soft)]">{p}</p>
-            </div>
-          ))}
+        <div className="container-page max-w-3xl">
+          <div className="mb-10 flex">
+            <BackLink href="/" label="Back to Home" />
+          </div>
+          <div className="space-y-8">
+            {SECTIONS.map(([h, p]) => (
+              <div key={h}>
+                <h3 className="text-xl">{h}</h3>
+                <p className="mt-2 text-[var(--color-ink-soft)]">{p}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
     </>

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { api, mediaUrl } from "@/lib/api";
 import PageHero from "@/components/PageHero";
 import LoadingImage from "@/components/LoadingImage";
+import BackLink from "@/components/BackLink";
 import GalleryGrid from "./GalleryGrid";
 
 export const metadata: Metadata = {
@@ -20,10 +21,14 @@ export default async function GalleryPage() {
         crumb="Gallery"
         title="Moments from the Trail"
         description="A glimpse of what awaits: real wildlife and landscape photography from across the Mara, Serengeti, Amboseli, and the Kenyan coast."
+        parent={{ label: "About", href: "/about" }}
       />
 
       <section className="py-24">
         <div className="container-page">
+          <div className="mb-10 flex">
+            <BackLink href="/about" label="Back to About" />
+          </div>
           <GalleryGrid images={images} />
         </div>
       </section>
