@@ -23,6 +23,16 @@ export default async function DestinationsPage() {
         description="Six iconic landscapes, endless ways to combine them. Pick a destination to see highlights, best time to visit, and matching safaris."
       />
 
+      <section className="py-10 sm:py-12">
+        <div className="container-page">
+          <div className="mx-auto mb-5 max-w-md text-center">
+            <span className="eyebrow mx-auto">Plan Your Route</span>
+            <h2 className="text-xl sm:text-2xl">The Safari Trail</h2>
+          </div>
+          <DestinationsMap destinations={destinations} />
+        </div>
+      </section>
+
       <section className="bg-[var(--color-bg-alt)] py-24">
         <div className="container-page">
           <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
@@ -32,16 +42,6 @@ export default async function DestinationsPage() {
               </Reveal>
             ))}
           </div>
-        </div>
-      </section>
-
-      <section className="py-10 sm:py-12">
-        <div className="container-page">
-          <div className="mx-auto mb-5 max-w-md text-center">
-            <span className="eyebrow mx-auto">Plan Your Route</span>
-            <h2 className="text-xl sm:text-2xl">The Safari Trail</h2>
-          </div>
-          <DestinationsMap destinations={destinations} />
         </div>
       </section>
 
