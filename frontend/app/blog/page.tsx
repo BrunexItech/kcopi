@@ -9,6 +9,7 @@ import Reveal from "@/components/Reveal";
 export const metadata: Metadata = {
   title: "Blog",
   description: "Safari planning guides, visa advice, packing lists, and migration insights from the Kcopi Global team.",
+  alternates: { canonical: "/blog" },
 };
 
 export default async function BlogPage() {

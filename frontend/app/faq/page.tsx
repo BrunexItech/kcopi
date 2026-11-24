@@ -10,6 +10,7 @@ import FaqAccordion from "./FaqAccordion";
 export const metadata: Metadata = {
   title: "FAQs",
   description: "Answers to common questions about booking a Kcopi Global safari: best time to visit, visas, pricing, and more.",
+  alternates: { canonical: "/faq" },
 };
 
 export default function FaqPage() {

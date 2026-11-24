@@ -60,6 +60,7 @@ export const metadata: Metadata = {
     template: "%s | Kcopi Global Safaris",
   },
   description: DEFAULT_DESCRIPTION,
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     siteName: SITE_NAME,

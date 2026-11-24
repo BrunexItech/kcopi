@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
 import BackLink from "@/components/BackLink";
 
-export const metadata: Metadata = { title: "Privacy Policy" };
+export const metadata: Metadata = { title: "Privacy Policy", alternates: { canonical: "/privacy" } };
 
 const SECTIONS: [string, string][] = [
   [

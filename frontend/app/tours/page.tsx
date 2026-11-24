@@ -7,6 +7,7 @@ import TourFilter from "./TourFilter";
 export const metadata: Metadata = {
   title: "Tours & Packages",
   description: "Browse Kcopi Global safari packages across Kenya and Tanzania: wildlife, family, and honeymoon itineraries from 3 to 8 days.",
+  alternates: { canonical: "/tours" },
 };
 
 export default async function ToursPage() {

@@ -9,6 +9,7 @@ import GalleryGrid from "./GalleryGrid";
 export const metadata: Metadata = {
   title: "Gallery",
   description: "Browse photos from Kcopi Global safaris across the Maasai Mara, Serengeti, Amboseli and the Kenyan coast.",
+  alternates: { canonical: "/gallery" },
 };
 
 export default async function GalleryPage() {

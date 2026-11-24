@@ -8,6 +8,7 @@ import DestinationsMap from "@/components/DestinationsMap";
 export const metadata: Metadata = {
   title: "Destinations",
   description: "Explore East Africa's top safari destinations: Maasai Mara, Amboseli, Serengeti, Tsavo, Lake Nakuru and Diani Beach.",
+  alternates: { canonical: "/destinations" },
 };
 
 export default async function DestinationsPage() {

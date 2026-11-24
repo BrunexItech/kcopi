@@ -23,6 +23,7 @@ export async function generateMetadata({
     return {
       title: t.title,
       description,
+      alternates: { canonical: `/tours/${slug}` },
       openGraph: { title: t.title, description, images: [{ url: image, width: 1200, height: 800 }] },
       twitter: { card: "summary_large_image", title: t.title, description, images: [image] },
     };

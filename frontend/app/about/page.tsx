@@ -8,6 +8,7 @@ import Icon from "@/components/Icon";
 export const metadata: Metadata = {
   title: "About Us",
   description: "Learn about Kcopi Global, a Kenyan-owned safari operator guiding East Africa since 2008.",
+  alternates: { canonical: "/about" },
 };
 
 const TIMELINE = [

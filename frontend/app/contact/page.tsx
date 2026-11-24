@@ -7,6 +7,7 @@ import ContactForm from "./ContactForm";
 export const metadata: Metadata = {
   title: "Contact",
   description: "Get in touch with Kcopi Global to plan your tailor-made East Africa safari. We respond within 24 hours.",
+  alternates: { canonical: "/contact" },
 };
 
 export default function ContactPage() {
