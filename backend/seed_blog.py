@@ -16,7 +16,7 @@ POSTS = [
         "slug": "best-time-to-visit-maasai-mara",
         "title": "When Is the Best Time to Visit the Maasai Mara?",
         "excerpt": "The honest answer depends on what you want to see. Here's how to pick your month.",
-        "cover_image": "/static/img/dest-masai-mara-hero.jpg",
+        "cover_image": "/static/img/gal-lion.jpg",
         "category": "planning",
         "body": (
             "There's no single \"best\" month for the Maasai Mara. There's a best month for what you specifically "
@@ -43,7 +43,7 @@ POSTS = [
         "slug": "kenya-tanzania-visa-guide",
         "title": "Kenya & Tanzania Visa Guide",
         "excerpt": "What most nationalities actually need to apply for, and how far ahead to do it.",
-        "cover_image": "/static/img/tours-hero.jpg",
+        "cover_image": "/static/img/gal-balloon.jpg",
         "category": "planning",
         "body": (
             "Visa requirements change periodically, so always confirm the current rules for your specific "
@@ -69,7 +69,7 @@ POSTS = [
         "slug": "complete-safari-packing-list",
         "title": "The Complete Safari Packing List",
         "excerpt": "What actually earns a place in your bag, from someone who's done this drive a hundred times.",
-        "cover_image": "/static/img/tour-masai-mara-classic.jpg",
+        "cover_image": "/static/img/gal-cheetah.jpg",
         "category": "guide",
         "body": (
             "Pack less than you think you need. Almost every camp offers a laundry service, vehicles have limited "
@@ -132,7 +132,7 @@ POSTS = [
         "slug": "planning-a-family-safari",
         "title": "Planning a Family Safari: Tips for Travelling With Kids in Kenya",
         "excerpt": "A safari with children looks different from a safari without them, in good ways, if you plan for it.",
-        "cover_image": "/static/img/tour-family-beach.jpg",
+        "cover_image": "/static/img/gal-maasai.jpg",
         "category": "guide",
         "body": (
             "A common worry we hear from parents is whether a safari is \"too much\" for young children: long game "

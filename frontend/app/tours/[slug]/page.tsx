@@ -10,7 +10,7 @@ import JsonLd from "@/components/JsonLd";
 import PriceTag from "@/components/PriceTag";
 import Reviews from "@/components/Reviews";
 import BackLink from "@/components/BackLink";
-import { formatDuration } from "@/lib/format";
+import TripOverviewCard from "@/components/TripOverviewCard";
 
 export async function generateMetadata({
   params,
@@ -96,23 +96,9 @@ export default async function TourDetailPage({
         <div className="mb-6 mt-6 flex">
           <BackLink href="/tours" label="Back to Tours & Packages" />
         </div>
-        <div className="relative z-10 flex flex-wrap overflow-hidden rounded-2xl bg-[var(--color-surface)] shadow-sm">
-          {[
-            ["Duration", formatDuration(tour.days, tour.nights)],
-            ["Destination", tour.destination_name],
-            ["Group Size", tour.group_size],
-            ["Style", tour.style],
-          ].map(([label, value], i, arr) => (
-            <div
-              key={label}
-              className={`min-w-[150px] flex-1 p-6 ${i < arr.length - 1 ? "border-b border-r-0 sm:border-b-0 sm:border-r" : ""} border-[var(--color-line)]`}
-            >
-              <span className="mb-1.5 block text-xs uppercase tracking-wide text-[var(--color-ink-soft)]">{label}</span>
-              <b className="font-[var(--font-display)] text-lg">{value}</b>
-            </div>
-          ))}
-        </div>
       </div>
+
+      <TripOverviewCard tour={tour} />
 
       <section className="py-24">
         <div className="container-page">
