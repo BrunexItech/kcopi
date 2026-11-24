@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "framer-motion";
 import LoadingImage from "@/components/LoadingImage";
 import Icon from "@/components/Icon";
 import { Tour, mediaUrl } from "@/lib/api";
@@ -32,7 +33,19 @@ export default function PackageCard({ t, index }: { t: Tour; index: number }) {
   const { format } = useCurrency();
 
   return (
-    <div
+    // This must stay the sticky element's own node, with no wrapping div
+    // around it: `position: sticky` is constrained by its immediate
+    // containing block, and an extra wrapper per card (even a plain,
+    // non-animated one) shrinks that containing block down to one card's
+    // height, killing the stacking-cards scroll effect entirely. Animating
+    // this element directly (opacity only — never transform) keeps the
+    // enter/exit transition from TourFilter's AnimatePresence without
+    // touching the DOM structure sticky depends on.
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.35, delay: index * 0.05 }}
       className="sticky top-[90px] z-10 mb-0 sm:top-24 md:top-28"
       style={{ marginTop: index === 0 ? 0 : `${Math.min(index * 15, 40)}px` }}
     >
@@ -104,6 +117,6 @@ export default function PackageCard({ t, index }: { t: Tour; index: number }) {
           </div>
         </div>
       </Link>
-    </div>
+    </motion.div>
   );
 }

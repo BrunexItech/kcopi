@@ -38,22 +38,17 @@ export default function TourFilter({ tours }: { tours: Tour[] }) {
           </button>
         ))}
       </div>
-      <motion.div layout className="space-y-4 sm:space-y-6 md:space-y-8">
+      {/* PackageCard renders its own `position: sticky` root directly as a
+          motion.div (for the enter/exit fade) — no wrapper div here, since
+          sticky's containing block is this element's immediate parent, and
+          any extra nesting per card breaks the stacking-cards scroll effect. */}
+      <div className="space-y-4 sm:space-y-6 md:space-y-8">
         <AnimatePresence mode="popLayout">
           {filtered.map((t, i) => (
-            <motion.div
-              key={t.slug}
-              layout
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.96 }}
-              transition={{ duration: 0.4, delay: i * 0.05, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <PackageCard t={t} index={i} />
-            </motion.div>
+            <PackageCard key={t.slug} t={t} index={i} />
           ))}
         </AnimatePresence>
-      </motion.div>
+      </div>
     </div>
   );
 }
