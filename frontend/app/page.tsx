@@ -69,9 +69,9 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="bg-[var(--color-bg-alt)] py-24">
-        <div className="container-page grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
-          <Reveal y={28} className="relative aspect-[4/5] overflow-hidden rounded-3xl shadow-md">
+      <section className="bg-[var(--color-bg-alt)] py-10 sm:py-20">
+        <div className="container-page grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-16">
+          <Reveal y={28} className="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-md sm:aspect-[16/11] lg:aspect-[4/5]">
             <LoadingImage src={mediaUrl("/static/img/home-guide-jeep-2.jpg")} alt="Safari guide with guests" fill sizes="50vw" className="object-cover" />
             <div className="absolute bottom-4 right-4 rounded-2xl bg-[var(--color-accent)] px-6 py-5 text-white shadow-md sm:bottom-6 sm:right-6">
               <b className="block font-[var(--font-display)] text-3xl">18 yrs</b>
@@ -86,7 +86,7 @@ export default async function HomePage() {
               not assembled from a brochure. You get a named guide, transparent pricing, and a plan that fits your
               pace, budget, and curiosity.
             </p>
-            <div className="mt-7 grid grid-cols-1 gap-6 sm:grid-cols-2">
+            <div className="mt-5 grid grid-cols-2 gap-4 sm:gap-6">
               {(
                 [
                   ["compass", "Local Expert Guides", "Kenyan-born, professionally certified driver-guides"],
@@ -95,13 +95,13 @@ export default async function HomePage() {
                   ["pencil", "Fully Tailor-Made", "Every itinerary adjusted to your pace and budget"],
                 ] as const
               ).map(([icon, title, desc]) => (
-                <div key={title} className="flex gap-4">
-                  <span className="grid h-[52px] w-[52px] flex-shrink-0 place-items-center rounded-lg bg-[var(--color-bg)] text-[var(--color-accent)]">
-                    <Icon name={icon} className="h-6 w-6" />
+                <div key={title} className="flex gap-3 sm:gap-4">
+                  <span className="grid h-10 w-10 flex-shrink-0 place-items-center rounded-lg bg-[var(--color-bg)] text-[var(--color-accent)] sm:h-[52px] sm:w-[52px]">
+                    <Icon name={icon} className="h-5 w-5 sm:h-6 sm:w-6" />
                   </span>
                   <div>
-                    <h4 className="font-semibold">{title}</h4>
-                    <p className="mt-1 text-sm text-[var(--color-ink-soft)]">{desc}</p>
+                    <h4 className="text-sm font-semibold sm:text-base">{title}</h4>
+                    <p className="mt-1 text-xs text-[var(--color-ink-soft)] sm:text-sm">{desc}</p>
                   </div>
                 </div>
               ))}
