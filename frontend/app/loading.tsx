@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import Spinner from "@/components/Spinner";
+import LoadingOverlay from "@/components/LoadingOverlay";
 import { setPageLoading } from "@/lib/pageLoadingSignal";
 
 export default function Loading() {
@@ -12,5 +12,5 @@ export default function Loading() {
     return () => setPageLoading(false);
   }, []);
 
-  return <Spinner label="Loading your safari..." />;
+  return <LoadingOverlay />;
 }
