@@ -2,9 +2,8 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { api } from "@/lib/api";
 import PageHero from "@/components/PageHero";
-import DestinationCard from "@/components/DestinationCard";
+import DestinationFeature from "@/components/DestinationFeature";
 import DestinationsMap from "@/components/DestinationsMap";
-import Reveal from "@/components/Reveal";
 
 export const metadata: Metadata = {
   title: "Destinations",
@@ -33,15 +32,11 @@ export default async function DestinationsPage() {
         </div>
       </section>
 
-      <section className="bg-[var(--color-bg-alt)] py-24">
-        <div className="container-page">
-          <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
-            {destinations.map((d, i) => (
-              <Reveal key={d.slug} delay={(i % 3) * 0.08}>
-                <DestinationCard d={d} />
-              </Reveal>
-            ))}
-          </div>
+      <section className="overflow-hidden py-24">
+        <div className="container-page space-y-28 sm:space-y-32">
+          {destinations.map((d, i) => (
+            <DestinationFeature key={d.slug} d={d} index={i} />
+          ))}
         </div>
       </section>
 
