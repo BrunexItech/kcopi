@@ -1,5 +1,5 @@
 from typing import Optional
-from fastapi import APIRouter, Depends, HTTPException, Request
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
 
 from ..database import get_db
@@ -67,14 +67,22 @@ def list_promotions(db: Session = Depends(get_db)):
 
 @router.post("/newsletter", status_code=201)
 @limiter.limit("5/minute")
-def subscribe_newsletter(request: Request, payload: schemas.NewsletterSubscribeRequest, db: Session = Depends(get_db)):
+def subscribe_newsletter(
+    request: Request,
+    payload: schemas.NewsletterSubscribeRequest,
+    background_tasks: BackgroundTasks,
+    db: Session = Depends(get_db),
+):
     existing = db.query(NewsletterSubscriber).filter(NewsletterSubscriber.email == payload.email).first()
     if existing:
         return {"status": "already_subscribed"}
     sub = NewsletterSubscriber(email=payload.email)
     db.add(sub)
     db.commit()
-    send_email(
+    # Backgrounded: a slow Gmail SMTP round-trip must never hold up the HTTP
+    # response the visitor is waiting on. The subscriber is already saved.
+    background_tasks.add_task(
+        send_email,
         payload.email,
         "Welcome to Kcopi Global",
         "Thanks for subscribing! You'll hear from us about once a month with safari tips and seasonal offers.\n\n"
@@ -85,12 +93,18 @@ def subscribe_newsletter(request: Request, payload: schemas.NewsletterSubscribeR
 
 @router.post("/enquiries", response_model=schemas.EnquiryOut, status_code=201)
 @limiter.limit("5/minute")
-def create_enquiry(request: Request, payload: schemas.EnquiryCreate, db: Session = Depends(get_db)):
+def create_enquiry(
+    request: Request,
+    payload: schemas.EnquiryCreate,
+    background_tasks: BackgroundTasks,
+    db: Session = Depends(get_db),
+):
     enquiry = Enquiry(**payload.model_dump())
     db.add(enquiry)
     db.commit()
     db.refresh(enquiry)
-    send_email(
+    background_tasks.add_task(
+        send_email,
         ADMIN_EMAIL,
         f"New enquiry from {enquiry.name}",
         "A new enquiry was submitted on the website:\n\n"
