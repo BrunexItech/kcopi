@@ -6,6 +6,9 @@ from ..database import get_db
 from ..models import Destination, Tour, GalleryImage, Enquiry, BlogPost, MediaAsset, NewsletterSubscriber
 from .. import schemas
 from ..limiter import limiter
+from ..mailer import send_email
+
+ADMIN_EMAIL = "kcopi.info@gmail.com"
 
 router = APIRouter(prefix="/api", tags=["public"])
 
@@ -71,17 +74,32 @@ def subscribe_newsletter(request: Request, payload: schemas.NewsletterSubscribeR
     sub = NewsletterSubscriber(email=payload.email)
     db.add(sub)
     db.commit()
+    send_email(
+        payload.email,
+        "Welcome to Kcopi Global",
+        "Thanks for subscribing! You'll hear from us about once a month with safari tips and seasonal offers.\n\n"
+        "- The Kcopi Global Team",
+    )
     return {"status": "subscribed"}
 
 
 @router.post("/enquiries", response_model=schemas.EnquiryOut, status_code=201)
 @limiter.limit("5/minute")
 def create_enquiry(request: Request, payload: schemas.EnquiryCreate, db: Session = Depends(get_db)):
-    # NOTE: out of scope for this build — no outbound email/notification is sent on
-    # submission. Enquiries are stored and visible to admins at /admin/enquiries.
-    # Wire up an email provider (e.g. SMTP, SendGrid) here when ready for production.
     enquiry = Enquiry(**payload.model_dump())
     db.add(enquiry)
     db.commit()
     db.refresh(enquiry)
+    send_email(
+        ADMIN_EMAIL,
+        f"New enquiry from {enquiry.name}",
+        "A new enquiry was submitted on the website:\n\n"
+        f"Name: {enquiry.name}\n"
+        f"Email: {enquiry.email}\n"
+        f"Phone: {enquiry.phone or '-'}\n"
+        f"Destination: {enquiry.destination or '-'}\n"
+        f"Dates: {enquiry.dates or '-'}\n"
+        f"Guests: {enquiry.guests or '-'}\n"
+        f"Message: {enquiry.message or '-'}\n",
+    )
     return enquiry
