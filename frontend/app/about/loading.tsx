@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import HeroSkeleton from "@/components/HeroSkeleton";
 import Skeleton from "@/components/Skeleton";
+import LoadingOverlay from "@/components/LoadingOverlay";
 import { setPageLoading } from "@/lib/pageLoadingSignal";
 
 export default function LoadingAbout() {
@@ -12,6 +13,8 @@ export default function LoadingAbout() {
   }, []);
 
   return (
+    <>
+    <LoadingOverlay />
     <div className="animate-pulse">
       <HeroSkeleton />
       <section className="py-24">
@@ -38,5 +41,6 @@ export default function LoadingAbout() {
         </div>
       </section>
     </div>
+    </>
   );
 }

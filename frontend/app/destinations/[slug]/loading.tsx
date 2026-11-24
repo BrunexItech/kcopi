@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import Skeleton from "@/components/Skeleton";
+import LoadingOverlay from "@/components/LoadingOverlay";
 import { setPageLoading } from "@/lib/pageLoadingSignal";
 
 export default function LoadingDestinationDetail() {
@@ -11,6 +12,8 @@ export default function LoadingDestinationDetail() {
   }, []);
 
   return (
+    <>
+    <LoadingOverlay />
     <div className="animate-pulse">
       <div className="relative h-[70vh] max-h-[620px] min-h-[420px] w-full bg-[var(--color-primary-dark)]">
         <div className="absolute inset-0 opacity-40">
@@ -58,5 +61,6 @@ export default function LoadingDestinationDetail() {
         </div>
       </div>
     </div>
+    </>
   );
 }
