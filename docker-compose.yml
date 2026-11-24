@@ -1,0 +1,36 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "8010:8010"
+    environment:
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000}
+      JWT_SECRET: ${JWT_SECRET:-kcopi-global-dev-secret-change-in-production}
+      DATABASE_URL: sqlite:////data/kcopiglobal.db
+    volumes:
+      - backend_data:/data
+      - backend_uploads:/app/static/uploads
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:8010}
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  backend_data:
+  backend_uploads:
+
+# First run (fresh volumes) starts with an empty database — seed it once with:
+#   docker compose exec backend python seed.py
+#
+# For a real deployment, set CORS_ORIGINS / NEXT_PUBLIC_API_URL / JWT_SECRET
+# in a .env file next to this compose file (or your platform's env config)
+# rather than relying on the dev defaults above.
