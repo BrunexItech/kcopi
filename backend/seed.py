@@ -122,7 +122,7 @@ TOURS = [
     dict(
         slug="masai-mara-classic-safari", title="Maasai Mara Classic Safari", category="wildlife",
         destination_name="Maasai Mara", hero_image=IMG.format("tour-masai-mara-classic"),
-        days=4, nights=3, price_usd=950, group_size="2–7 guests", style="Lodge & Tented Camp",
+        days=4, nights=3, price_usd=650, group_size="2–7 guests", style="Lodge & Tented Camp",
         summary="A fast-paced introduction to Kenya's flagship reserve: game drives morning and "
                 "evening, a Maasai village visit, and prime predator territory.",
         itinerary=[
@@ -139,7 +139,7 @@ TOURS = [
     dict(
         slug="great-migration-serengeti", title="Great Migration Serengeti Safari", category="wildlife",
         destination_name="Serengeti, Tanzania", hero_image=IMG.format("tour-serengeti-migration"),
-        days=6, nights=5, price_usd=2150, group_size="2–6 guests", style="Mobile Tented Camp",
+        days=6, nights=5, price_usd=1450, group_size="2–6 guests", style="Mobile Tented Camp",
         summary="A six-day deep dive into the Serengeti ecosystem, timed around the Great Migration, "
                 "following the herds with an expert tracking guide.",
         itinerary=[
@@ -158,7 +158,7 @@ TOURS = [
     dict(
         slug="amboseli-kilimanjaro-safari", title="Amboseli & Kilimanjaro View Safari", category="wildlife",
         destination_name="Amboseli", hero_image=IMG.format("tour-amboseli-kili"),
-        days=3, nights=2, price_usd=620, group_size="2–7 guests", style="Lodge",
+        days=3, nights=2, price_usd=480, group_size="2–7 guests", style="Lodge",
         summary="A short, scenic safari built around elephant herds and the best photographic angles "
                 "of Mount Kilimanjaro.",
         itinerary=[
@@ -173,7 +173,7 @@ TOURS = [
     dict(
         slug="kenya-family-safari-beach", title="Kenya Family Safari & Beach Combo", category="family",
         destination_name="Maasai Mara + Diani Beach", hero_image=IMG.format("tour-family-beach"),
-        days=8, nights=7, price_usd=2480, group_size="Families & groups",
+        days=8, nights=7, price_usd=1250, group_size="Families & groups",
         style="Family-Friendly Lodge & Beach Resort",
         summary="The best of both worlds for families: four days of wildlife in the Mara paced for "
                 "children, followed by four relaxed days on Diani's beaches.",
@@ -193,7 +193,7 @@ TOURS = [
     dict(
         slug="honeymoon-safari-escape", title="Honeymoon Safari Escape", category="honeymoon",
         destination_name="Maasai Mara + Diani Beach", hero_image=IMG.format("tour-honeymoon"),
-        days=5, nights=4, price_usd=1980, group_size="Couples", style="Luxury Tented Camp & Beach Villa",
+        days=5, nights=4, price_usd=1150, group_size="Couples", style="Luxury Tented Camp & Beach Villa",
         summary="A romance-first itinerary: private game drives, a bush dinner under the stars, and a "
                 "closing stay in a private beach villa.",
         itinerary=[
@@ -212,7 +212,7 @@ TOURS = [
     dict(
         slug="tsavo-nakuru-explorer", title="Tsavo & Lake Nakuru Explorer", category="wildlife",
         destination_name="Tsavo & Lake Nakuru", hero_image=IMG.format("tour-tsavo-nakuru"),
-        days=5, nights=4, price_usd=1340, group_size="2–7 guests", style="Lodge & Tented Camp",
+        days=5, nights=4, price_usd=850, group_size="2–7 guests", style="Lodge & Tented Camp",
         summary="An off-the-beaten-path route for returning safari-goers, featuring red-dust elephants "
                 "in Tsavo and rhino tracking at Lake Nakuru.",
         itinerary=[
