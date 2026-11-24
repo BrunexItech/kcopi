@@ -2,6 +2,7 @@
 
 import Image, { ImageProps } from "next/image";
 import { useCallback, useState } from "react";
+import { mediaUrl } from "@/lib/api";
 
 // Drop-in replacement for next/image's `fill` usage: shows a spinner over the
 // image's area until it has actually finished loading, instead of letting a
@@ -36,9 +37,18 @@ export default function LoadingImage({ className, onLoad, ...props }: ImageProps
         // background here either, so it reads correctly on both light card
         // surfaces and dark hero/CTA sections.
         <div className="absolute inset-0 z-20 grid place-items-center">
+          {/* Same branded ring-plus-logo as LoadingOverlay, just smaller —
+              one consistent spinner design everywhere on the site, rather
+              than this looking like a second, unrelated loading indicator
+              from the one that shows during a page transition. The base
+              ring stays white/25 (not the line colour LoadingOverlay uses)
+              because this sits over arbitrary photos, light or dark. */}
           <div className="relative h-9 w-9">
             <div className="absolute inset-0 rounded-full border-[3px] border-white/25" />
             <div className="absolute inset-0 animate-spin rounded-full border-[3px] border-transparent border-t-[var(--color-gold)]" />
+            <div className="absolute inset-[3px] grid place-items-center overflow-hidden rounded-full bg-[var(--color-surface)] p-1">
+              <img src={mediaUrl("/static/img/logo-icon.png")} alt="" className="h-full w-full object-contain" />
+            </div>
           </div>
         </div>
       )}
