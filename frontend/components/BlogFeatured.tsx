@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import LoadingImage from "@/components/LoadingImage";
 import Icon from "@/components/Icon";
 import { BlogPost, mediaUrl } from "@/lib/api";
+import { isIntroDismissed, subscribeIntroDismissed } from "@/lib/introSignal";
 
 const CATEGORY_LABEL: Record<string, string> = {
   planning: "Trip Planning",
@@ -26,12 +27,21 @@ export default function BlogFeatured({ post }: { post: BlogPost }) {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const imageY = useTransform(scrollYProgress, [0, 1], ["-6%", "6%"]);
 
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+  const [introDone, setIntroDone] = useState(false);
+  useEffect(() => {
+    if (isIntroDismissed()) {
+      setIntroDone(true);
+      return;
+    }
+    return subscribeIntroDismissed(() => setIntroDone(true));
+  }, []);
+
   return (
     <motion.article
       ref={ref}
       initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
+      animate={inView && introDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       className="group relative grid overflow-hidden rounded-[2rem] bg-[var(--color-primary-dark)] text-white shadow-2xl lg:grid-cols-2"
     >

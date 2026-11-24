@@ -4,6 +4,7 @@ import { useEffect, useLayoutEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { mediaUrl } from "@/lib/api";
 import { onHeroVideoReady } from "@/lib/heroReady";
+import { markIntroDismissed } from "@/lib/introSignal";
 
 const STORAGE_KEY = "tt_welcomed";
 
@@ -28,8 +29,13 @@ export default function WelcomeIntro() {
   // Runs synchronously before the browser paints, so a repeat visit within
   // the same tab session skips straight to invisible with no flash at all.
   useLayoutEffect(() => {
+    if (isAdmin) {
+      markIntroDismissed();
+      return;
+    }
     if (hasRunThisPageLoad) {
       setVisible(false);
+      markIntroDismissed();
       return;
     }
     let alreadySeen = false;
@@ -41,8 +47,9 @@ export default function WelcomeIntro() {
     if (alreadySeen) {
       hasRunThisPageLoad = true;
       setVisible(false);
+      markIntroDismissed();
     }
-  }, []);
+  }, [isAdmin]);
 
   useEffect(() => {
     if (!visible) return;
@@ -80,6 +87,7 @@ export default function WelcomeIntro() {
       if (left) return;
       left = true;
       setPhase("leaving");
+      markIntroDismissed();
       leaveTimer = setTimeout(() => setVisible(false), 750);
     };
 
