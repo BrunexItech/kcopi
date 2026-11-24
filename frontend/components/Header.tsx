@@ -135,7 +135,7 @@ export default function Header() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="border-b border-[var(--color-line)] py-3.5 font-[var(--font-display)] text-2xl"
+                className="relative border-b border-[var(--color-line)] py-3.5 font-[var(--font-display)] text-2xl"
               >
                 {link.label}
                 <NavLinkHint />

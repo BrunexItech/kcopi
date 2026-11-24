@@ -44,20 +44,26 @@
   animation: lightbox-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* Nav-link pending spinner: stays invisible (reserving its space, so nothing
-   shifts) until useLinkStatus flips it on, then fades in once and only ever
-   rotates after that, never pulsing opacity, so it can't read as "blinking". */
+/* Nav-link pending spinner: absolutely positioned so it costs zero width in
+   the link's own flow (the nav bar's fit must never depend on whether a
+   link happens to be navigating) and stays invisible until useLinkStatus
+   flips it on, then fades in once and only ever rotates after that, never
+   pulsing opacity, so it can't read as "blinking". Requires the parent
+   <Link> to be `position: relative`. */
 .nav-link-spinner {
-  display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: 100%;
   width: 0.65em;
   height: 0.65em;
-  margin-left: 0.45em;
-  vertical-align: -0.08em;
+  margin-top: -0.325em;
+  margin-left: 0.35em;
   border-radius: 9999px;
   border: 1.5px solid currentColor;
   border-top-color: transparent;
   opacity: 0;
   visibility: hidden;
+  pointer-events: none;
 }
 .nav-link-spinner.is-pending {
   visibility: visible;
