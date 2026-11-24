@@ -29,7 +29,7 @@ export default function DestinationsMap({ destinations }: { destinations: Destin
   const pathD = points.map((p, i) => `${i === 0 ? "M" : "L"} ${p.x} ${p.y}`).join(" ");
 
   return (
-    <div className="relative mx-auto aspect-[16/11] w-full max-w-4xl overflow-hidden rounded-3xl bg-gradient-to-br from-[var(--color-primary-dark)] via-[var(--color-primary)] to-[var(--color-primary-light)] shadow-md">
+    <div className="relative mx-auto aspect-[4/3] w-full max-w-xl overflow-hidden rounded-3xl bg-gradient-to-br from-[var(--color-primary-dark)] via-[var(--color-primary)] to-[var(--color-primary-light)] shadow-md">
       {/* Subtle topographic texture */}
       <div
         className="absolute inset-0 opacity-20"
