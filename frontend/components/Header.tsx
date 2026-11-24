@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import { AnimatePresence, motion } from "framer-motion";
 import { mediaUrl } from "@/lib/api";
 import Icon from "@/components/Icon";
 import CurrencySwitcher from "@/components/CurrencySwitcher";
@@ -10,14 +11,14 @@ import SiteSearch from "@/components/SiteSearch";
 import NavLinkHint from "@/components/NavLinkHint";
 
 const NAV_LINKS = [
-  { href: "/", label: "Home" },
-  { href: "/destinations", label: "Destinations" },
-  { href: "/tours", label: "Tours & Packages" },
-  { href: "/about", label: "About" },
-  { href: "/blog", label: "Blog" },
-  { href: "/faq", label: "FAQs" },
-  { href: "/contact", label: "Contact" },
-];
+  { href: "/", label: "Home", icon: "compass" },
+  { href: "/destinations", label: "Destinations", icon: "map-pin" },
+  { href: "/tours", label: "Tours & Packages", icon: "tent" },
+  { href: "/about", label: "About", icon: "users" },
+  { href: "/blog", label: "Blog", icon: "pencil" },
+  { href: "/faq", label: "FAQs", icon: "chat" },
+  { href: "/contact", label: "Contact", icon: "mail" },
+] as const;
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -98,8 +99,9 @@ export default function Header() {
           </Link>
           <button
             aria-label="Open menu"
-            onClick={() => setOpen(true)}
-            className={`grid h-11 w-11 shrink-0 place-items-center rounded-full border transition-colors duration-300 lg:hidden ${
+            onPointerDown={() => setOpen(true)}
+            style={{ touchAction: "manipulation" }}
+            className={`grid h-11 w-11 shrink-0 place-items-center rounded-full border transition-colors duration-300 active:scale-90 lg:hidden ${
               solid ? "border-[var(--color-line)]" : "border-white/40"
             }`}
           >
@@ -114,45 +116,93 @@ export default function Header() {
         </div>
       </div>
 
-      {open && (
-        <div className="fixed inset-0 z-[60] flex flex-col overflow-y-auto bg-[var(--color-bg)] px-6 py-6 lg:hidden">
-          <div className="mb-10 flex items-center justify-between">
-            <Link href="/" onClick={() => setOpen(false)} className="flex items-center gap-2.5 font-[var(--font-display)] text-xl font-medium">
-              <img src={mediaUrl("/static/img/logo-icon.png")} alt="Kcopi Global" className="h-10 w-auto" />
-              Kcopi Global
-            </Link>
-            <button
-              aria-label="Close menu"
-              onClick={() => setOpen(false)}
-              className="grid h-11 w-11 place-items-center rounded-full border border-[var(--color-line)]"
-            >
-              <Icon name="x" className="h-5 w-5" />
-            </button>
-          </div>
-          <nav className="flex flex-col">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="relative border-b border-[var(--color-line)] py-3.5 font-[var(--font-display)] text-2xl"
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 z-[60] overflow-hidden bg-[var(--color-primary-dark)] lg:hidden"
+          >
+            <img
+              src={mediaUrl("/static/img/hero-home.jpg")}
+              alt=""
+              className="absolute inset-0 h-full w-full scale-110 object-cover opacity-25 blur-sm"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-primary-dark)]/90 via-[var(--color-primary-dark)]/95 to-[var(--color-primary-dark)]" />
+
+            <div className="relative flex h-full flex-col overflow-y-auto px-6 py-6 text-white">
+              <div className="mb-8 flex items-center justify-between">
+                <Link href="/" onClick={() => setOpen(false)} className="flex items-center gap-2.5 font-[var(--font-display)] text-xl font-medium">
+                  <img src={mediaUrl("/static/img/logo-icon.png")} alt="Kcopi Global" className="h-10 w-auto" />
+                  Kcopi Global
+                </Link>
+                <button
+                  aria-label="Close menu"
+                  onPointerDown={() => setOpen(false)}
+                  style={{ touchAction: "manipulation" }}
+                  className="grid h-11 w-11 place-items-center rounded-full border border-white/25 active:scale-90"
+                >
+                  <Icon name="x" className="h-5 w-5" />
+                </button>
+              </div>
+
+              <motion.nav
+                className="flex flex-col"
+                initial="hidden"
+                animate="visible"
+                variants={{ visible: { transition: { staggerChildren: 0.055, delayChildren: 0.1 } } }}
               >
-                {link.label}
-                <NavLinkHint />
+                {NAV_LINKS.map((link, i) => {
+                  const active = pathname === link.href;
+                  return (
+                    <motion.div
+                      key={link.href}
+                      variants={{ hidden: { opacity: 0, x: 28 }, visible: { opacity: 1, x: 0 } }}
+                      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                      <Link
+                        href={link.href}
+                        onClick={() => setOpen(false)}
+                        className="relative flex items-center gap-4 border-b border-white/10 py-3.5"
+                      >
+                        <span
+                          aria-hidden
+                          className="font-[var(--font-display)] text-sm text-white/25"
+                        >
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <span
+                          className={`grid h-9 w-9 flex-shrink-0 place-items-center rounded-full ${
+                            active ? "bg-[var(--color-gold)] text-[var(--color-primary-dark)]" : "bg-white/10 text-[var(--color-gold)]"
+                          }`}
+                        >
+                          <Icon name={link.icon} className="h-4 w-4" />
+                        </span>
+                        <span className={`font-[var(--font-display)] text-2xl ${active ? "text-[var(--color-gold)]" : "text-white"}`}>
+                          {link.label}
+                        </span>
+                        <NavLinkHint />
+                      </Link>
+                    </motion.div>
+                  );
+                })}
+              </motion.nav>
+
+              <div className="mt-7 flex items-center justify-between gap-4">
+                <CurrencySwitcher />
+                <a href="tel:+254712261111" className="flex items-center gap-2 text-sm font-medium text-white/85">
+                  <Icon name="phone" className="h-4 w-4" /> +254 712 261 111
+                </a>
+              </div>
+              <Link href="/contact" onClick={() => setOpen(false)} className="btn btn-primary mt-5 w-full">
+                Plan My Safari
               </Link>
-            ))}
-          </nav>
-          <div className="mt-7 flex items-center justify-between gap-4">
-            <CurrencySwitcher solid />
-            <a href="tel:+254712261111" className="flex items-center gap-2 text-sm font-medium text-[var(--color-ink)]">
-              <Icon name="phone" className="h-4 w-4" /> +254 712 261 111
-            </a>
-          </div>
-          <Link href="/contact" onClick={() => setOpen(false)} className="btn btn-primary mt-5 w-full">
-            Plan My Safari
-          </Link>
-        </div>
-      )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
