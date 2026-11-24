@@ -33,18 +33,30 @@ export default function Header() {
   }, []);
 
   // Locks the page behind the mobile panel so the only things that work
-  // while it's open are closing it or tapping a link — and Escape is a
-  // second, keyboard-reachable way to close it besides the toggle button.
+  // while it's open are closing it or tapping a link. Plain
+  // `overflow: hidden` on body doesn't reliably stop touch-drag scrolling
+  // on iOS Safari, so the scroll position is pinned with `position: fixed`
+  // instead and restored exactly on close. Escape is a second,
+  // keyboard-reachable way to close it besides the toggle button.
   useEffect(() => {
     if (!open) return;
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    const scrollY = window.scrollY;
+    const body = document.body.style;
+    const prev = { position: body.position, top: body.top, width: body.width, overflow: body.overflow };
+    body.position = "fixed";
+    body.top = `-${scrollY}px`;
+    body.width = "100%";
+    body.overflow = "hidden";
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setOpen(false);
     };
     window.addEventListener("keydown", onKey);
     return () => {
-      document.body.style.overflow = prevOverflow;
+      body.position = prev.position;
+      body.top = prev.top;
+      body.width = prev.width;
+      body.overflow = prev.overflow;
+      window.scrollTo(0, scrollY);
       window.removeEventListener("keydown", onKey);
     };
   }, [open]);
@@ -59,15 +71,17 @@ export default function Header() {
   const triggerSolid = scrolled && !open;
 
   return (
-    // Background/blur styling keys off `scrolled` only (not `open`): a
-    // backdrop-filter on this element would create a new containing block
-    // for its `position: fixed` descendants, collapsing the full-screen
-    // mobile menu panel below down to this bar's own height instead of the
-    // viewport. The panel already paints its own solid background once open.
+    // No backdrop-filter here, deliberately: a `backdrop-filter` on this
+    // element creates a new containing block for any `position: fixed`
+    // descendant (the full-screen mobile panel below), which collapses it
+    // down to this bar's own ~76px height instead of the viewport the
+    // instant the page has been scrolled (scrolled state is what turns the
+    // blur on). High opacity alone gives a near-identical solid look
+    // without that risk.
     <header
       className={`fixed inset-x-0 top-0 z-50 w-full border-b transition-colors duration-300 ${
         scrolled
-          ? "border-[var(--color-line)] bg-[var(--color-bg)]/90 backdrop-blur-md shadow-sm"
+          ? "border-[var(--color-line)] bg-[var(--color-bg)]/95 shadow-sm"
           : "border-transparent bg-transparent"
       }`}
     >
@@ -122,7 +136,7 @@ export default function Header() {
           <button
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
-            onPointerDown={() => setOpen((v) => !v)}
+            onClick={() => setOpen((v) => !v)}
             style={{ touchAction: "manipulation" }}
             className={`relative z-[70] grid h-11 w-11 shrink-0 place-items-center rounded-full border transition-colors duration-300 active:scale-90 lg:hidden ${
               triggerSolid ? "border-[var(--color-line)]" : "border-white/40"
