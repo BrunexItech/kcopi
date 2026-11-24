@@ -125,8 +125,8 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="mailto:hello@kcopiglobal.co.ke" className="flex items-center gap-2.5 transition-colors hover:text-white">
-                  <Icon name="mail" className="h-4 w-4 text-[var(--color-gold)]" /> hello@kcopiglobal.co.ke
+                <a href="mailto:kcopi.info@gmail.com" className="flex items-center gap-2.5 transition-colors hover:text-white">
+                  <Icon name="mail" className="h-4 w-4 text-[var(--color-gold)]" /> kcopi.info@gmail.com
                 </a>
               </li>
               <li className="flex items-center gap-2.5">

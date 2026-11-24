@@ -11,6 +11,8 @@ COPY . .
 # backend domain for a production build (defaults to local dev otherwise).
 ARG NEXT_PUBLIC_API_URL=http://localhost:8010
 ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+ARG NEXT_PUBLIC_SITE_URL=http://localhost:3001
+ENV NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL}
 RUN npm run build
 
 FROM node:20-alpine AS runner

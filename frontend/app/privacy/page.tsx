@@ -19,7 +19,7 @@ const SECTIONS: [string, string][] = [
   ],
   [
     "Your Rights",
-    "You may request access to, correction of, or deletion of your personal data at any time by contacting hello@kcopiglobal.co.ke.",
+    "You may request access to, correction of, or deletion of your personal data at any time by contacting kcopi.info@gmail.com.",
   ],
 ];
 

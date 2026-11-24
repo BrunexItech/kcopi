@@ -92,7 +92,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             logo: mediaUrl("/static/img/logo-icon.png"),
             image: mediaUrl("/static/img/hero-home.jpg"),
             telephone: "+254712261111",
-            email: "hello@kcopiglobal.co.ke",
+            email: "kcopi.info@gmail.com",
             address: {
               "@type": "PostalAddress",
               addressLocality: "Narok",

@@ -32,7 +32,7 @@ export default function ContactPage() {
               {(
                 [
                   ["phone", "Call / WhatsApp", "+254 712 261 111", "tel:+254712261111"],
-                  ["mail", "Email", "hello@kcopiglobal.co.ke", "mailto:hello@kcopiglobal.co.ke"],
+                  ["mail", "Email", "kcopi.info@gmail.com", "mailto:kcopi.info@gmail.com"],
                   ["map-pin", "Office", "P.O Box 363, Narok, Kenya", null],
                   ["clock", "Response Time", "Within 24 hours, 7 days a week", null],
                 ] as const
