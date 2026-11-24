@@ -8,6 +8,7 @@ import LoadingImage from "@/components/LoadingImage";
 import Icon from "@/components/Icon";
 import Reviews from "@/components/Reviews";
 import PromotionsStrip from "@/components/PromotionsStrip";
+import Reveal from "@/components/Reveal";
 
 export default async function HomePage() {
   const [destinations, tours, promotions] = await Promise.all([
@@ -34,11 +35,11 @@ export default async function HomePage() {
             "100% Kenyan-Owned & Operated",
             "Financially Protected Bookings",
             "24/7 In-Trip WhatsApp Support",
-          ].map((item) => (
-            <div key={item} className="flex items-center gap-2.5 text-sm font-semibold text-white/90">
+          ].map((item, i) => (
+            <Reveal key={item} delay={i * 0.08} y={10} className="flex items-center gap-2.5 text-sm font-semibold text-white/90">
               <span className="h-2 w-2 rounded-full bg-[var(--color-gold)]" />
               {item}
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>
@@ -54,8 +55,10 @@ export default async function HomePage() {
             </p>
           </div>
           <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
-            {destinations.map((d) => (
-              <DestinationCard key={d.slug} d={d} />
+            {destinations.map((d, i) => (
+              <Reveal key={d.slug} delay={(i % 3) * 0.08}>
+                <DestinationCard d={d} />
+              </Reveal>
             ))}
           </div>
           <div className="mt-10 text-center">
@@ -68,14 +71,14 @@ export default async function HomePage() {
 
       <section className="bg-[var(--color-bg-alt)] py-24">
         <div className="container-page grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-3xl shadow-md">
+          <Reveal y={28} className="relative aspect-[4/5] overflow-hidden rounded-3xl shadow-md">
             <LoadingImage src={mediaUrl("/static/img/home-guide-jeep-2.jpg")} alt="Safari guide with guests" fill sizes="50vw" className="object-cover" />
             <div className="absolute bottom-4 right-4 rounded-2xl bg-[var(--color-accent)] px-6 py-5 text-white shadow-md sm:bottom-6 sm:right-6">
               <b className="block font-[var(--font-display)] text-3xl">18 yrs</b>
               <span className="text-xs uppercase tracking-wide">On the Ground in Kenya</span>
             </div>
-          </div>
-          <div>
+          </Reveal>
+          <Reveal delay={0.1} y={28}>
             <span className="eyebrow">The Kcopi Global Difference</span>
             <h2 className="text-4xl">We don&apos;t sell safaris. We design them around you.</h2>
             <p className="mt-4 text-[var(--color-ink-soft)]">
@@ -103,7 +106,7 @@ export default async function HomePage() {
                 </div>
               ))}
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
 
@@ -117,8 +120,10 @@ export default async function HomePage() {
             </p>
           </div>
           <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
-            {tours.slice(0, 3).map((t) => (
-              <TourCard key={t.slug} t={t} />
+            {tours.slice(0, 3).map((t, i) => (
+              <Reveal key={t.slug} delay={i * 0.1}>
+                <TourCard t={t} />
+              </Reveal>
             ))}
           </div>
           <div className="mt-10 text-center">
@@ -131,13 +136,15 @@ export default async function HomePage() {
 
       <section className="py-24">
         <div className="container-page">
-          <div className="mx-auto mb-12 max-w-xl text-center">
+          <Reveal className="mx-auto mb-12 max-w-xl text-center">
             <span className="eyebrow mx-auto">Guest Stories</span>
             <h2 className="text-4xl">
               What Our <span className="font-[var(--font-script)] text-[var(--color-accent)]">Travellers</span> Say
             </h2>
-          </div>
-          <Reviews limit={6} showSummary />
+          </Reveal>
+          <Reveal delay={0.1}>
+            <Reviews limit={6} showSummary />
+          </Reveal>
         </div>
       </section>
 

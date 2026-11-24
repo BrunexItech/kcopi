@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import ScrollToTop from "@/components/ScrollToTop";
 import WelcomeIntro from "@/components/WelcomeIntro";
+import PageTransition from "@/components/PageTransition";
 import Analytics from "@/components/Analytics";
 import CookieConsent from "@/components/CookieConsent";
 import ErrorReporter from "@/components/ErrorReporter";
@@ -110,7 +111,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <ScrollToTop />
           <WelcomeIntro />
           <Header />
-          <main id="main-content">{children}</main>
+          <main id="main-content">
+            <PageTransition>{children}</PageTransition>
+          </main>
           <Footer />
           <WhatsAppButton />
           <CookieConsent />

@@ -4,6 +4,7 @@ import { api } from "@/lib/api";
 import PageHero from "@/components/PageHero";
 import DestinationCard from "@/components/DestinationCard";
 import DestinationsMap from "@/components/DestinationsMap";
+import Reveal from "@/components/Reveal";
 
 export const metadata: Metadata = {
   title: "Destinations",
@@ -39,8 +40,10 @@ export default async function DestinationsPage() {
       <section className="bg-[var(--color-bg-alt)] py-24">
         <div className="container-page">
           <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
-            {destinations.map((d) => (
-              <DestinationCard key={d.slug} d={d} />
+            {destinations.map((d, i) => (
+              <Reveal key={d.slug} delay={(i % 3) * 0.08}>
+                <DestinationCard d={d} />
+              </Reveal>
             ))}
           </div>
         </div>
