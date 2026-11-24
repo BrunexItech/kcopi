@@ -2,15 +2,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { api, mediaUrl } from "@/lib/api";
-import PageHero from "@/components/PageHero";
 import TourCard from "@/components/TourCard";
 import LoadingImage from "@/components/LoadingImage";
 import Icon from "@/components/Icon";
 import JsonLd from "@/components/JsonLd";
 import PriceTag from "@/components/PriceTag";
 import Reviews from "@/components/Reviews";
-import BackLink from "@/components/BackLink";
-import TripOverviewCard from "@/components/TripOverviewCard";
+import TourHero from "@/components/TourHero";
 
 export async function generateMetadata({
   params,
@@ -84,21 +82,7 @@ export default async function TourDetailPage({
           })),
         }}
       />
-      <PageHero
-        image={tour.hero_image}
-        crumb={tour.title}
-        title={tour.title}
-        description={tour.summary}
-        parent={{ label: "Tours & Packages", href: "/tours" }}
-      />
-
-      <div className="container-page">
-        <div className="mb-6 mt-6 flex">
-          <BackLink href="/tours" label="Back to Tours & Packages" />
-        </div>
-      </div>
-
-      <TripOverviewCard tour={tour} />
+      <TourHero tour={tour} />
 
       <section className="py-24">
         <div className="container-page">
